@@ -50,8 +50,12 @@ public class OdometerService extends Service {
                 @Override
                 public void onStatusChanged(String arg0, int arg1, Bundle bundle) {}
             };
-        locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
+            
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_DENIED) {
+            locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
+        }
     }
 
     @Override
